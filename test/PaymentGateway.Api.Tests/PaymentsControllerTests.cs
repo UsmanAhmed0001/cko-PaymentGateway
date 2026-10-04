@@ -24,19 +24,18 @@ public class PaymentsControllerTests
     public async Task RetrievesAPaymentSuccessfully()
     {
         // Arrange
-        var payment = new PaymentResponse
-        {
-            Id = Guid.NewGuid(),
-            ExpiryYear = _random.Next(2023, 2030),
-            ExpiryMonth = _random.Next(1, 12),
-            Amount = _random.Next(1, 10000),
-            CardNumberLastFour = _random.Next(1111, 9999).ToString(),
-            Status = PaymentStatus.Authorized,
-            Currency = "GBP"
-        };
+        var payment = new Payment(
+            Id: Guid.NewGuid(),
+            Status: PaymentStatus.Authorized,
+            CardNumberLastFour: "8877",
+            ExpiryMonth: 4,
+            ExpiryYear: 2027,
+            Currency: "GBP",
+            Amount: 100,
+            AuthorizationCode: "test-auth-code");
         
         
-        var paymentsRepository = new PaymentsRepository();
+        var paymentsRepository = new InMemoryPaymentsRepository();
         paymentsRepository.Add(payment);
 
         var webApplicationFactory = new WebApplicationFactory<PaymentsController>();

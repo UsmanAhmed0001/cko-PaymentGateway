@@ -13,7 +13,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton(TimeProvider.System);
 builder.Services.AddSingleton<PaymentRequestValidator>();
 
-builder.Services.AddSingleton<PaymentsRepository>();
+builder.Services.AddSingleton<InMemoryPaymentsRepository>();
+builder.Services.AddSingleton<IPaymentRepository, InMemoryPaymentsRepository>();
 
 var app = builder.Build();
 
