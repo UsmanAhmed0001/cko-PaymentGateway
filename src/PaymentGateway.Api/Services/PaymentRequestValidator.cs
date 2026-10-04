@@ -26,7 +26,7 @@ public class PaymentRequestValidator
         return errors;
     }
 
-    public static void ValidateCardNumber(string? cardNumber, List<string> errors)
+    private static void ValidateCardNumber(string? cardNumber, List<string> errors)
     {
         if (string.IsNullOrEmpty(cardNumber))
             errors.Add("Card number is required");
@@ -34,22 +34,21 @@ public class PaymentRequestValidator
             errors.Add("Card number must be 14-19 numeric characters");
     }
 
-    public void ValidateExpiry(int? month, int? year, List<string> errors)
+    private void ValidateExpiry(int? month, int? year, List<string> errors)
     {
         if (month is null)
-            errors.Add("Expiry Month is required");
+            errors.Add("Expiry month is required");
         else if (month is < 1 or > 12)
             errors.Add("Expiry month must be between 1 and 12");
         
         if (year is null)
-            errors.Add("Expiry Year is required");
+            errors.Add("Expiry year is required");
 
         if (month is >= 1 && month <= 12 && year is not null)
         {
             var now = _timeprovider.GetUtcNow();
             var isFuture = year > now.Year || (year == now.Year && month >= now.Month);
             
-            if(!isFuture)
                 errors.Add("Card expiry date must be in future");
 
         }
