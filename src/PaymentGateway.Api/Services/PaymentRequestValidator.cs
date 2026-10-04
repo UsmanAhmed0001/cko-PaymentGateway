@@ -49,20 +49,21 @@ public class PaymentRequestValidator
             var now = _timeprovider.GetUtcNow();
             var isFuture = year > now.Year || (year == now.Year && month >= now.Month);
             
+            if (!isFuture)
                 errors.Add("Card expiry date must be in future");
 
         }
     }
 
-    public static void ValidateCurrency(string? currency, List<string> errors)
+    private static void ValidateCurrency(string? currency, List<string> errors)
     {
         if (string.IsNullOrEmpty(currency))
             errors.Add("Currency is required");
         else if(!SupportedCurrencies.Contains(currency))
-            errors.Add("Currency is not supported, must be on of: GBP, USD, EUR");
+            errors.Add("Currency is not supported, must be one of: GBP, USD, EUR");
     }
 
-    public static void ValidateAmount(long? amount, List<string> errors)
+    private static void ValidateAmount(long? amount, List<string> errors)
     {
         if (amount is null)
             errors.Add("Amount is required");
@@ -75,7 +76,7 @@ public class PaymentRequestValidator
         if (string.IsNullOrEmpty(cvv))
             errors.Add("CVV is required");
         else if (cvv.Length is < 3 or > 4 || !IsDigitsOnly(cvv))
-            errors.Add("CVV must be between 3 and 4");
+            errors.Add("CVV must be between 3-4 numeric characters");
     }
     
     private static bool IsDigitsOnly(string value) => value.All(char.IsAsciiDigit);
