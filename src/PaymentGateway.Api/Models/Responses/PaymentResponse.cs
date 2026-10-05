@@ -9,4 +9,15 @@ public class PaymentResponse
     public required int ExpiryYear { get; set; }
     public required string Currency { get; set; }
     public required long Amount { get; set; }
+    
+    public static PaymentResponse From(Payment payment) => new()
+    {
+        Id = payment.Id,
+        Status = payment.Status,
+        CardNumberLastFour = payment.CardNumberLastFour,
+        ExpiryMonth = payment.ExpiryMonth,
+        ExpiryYear = payment.ExpiryYear,
+        Currency = payment.Currency,
+        Amount = payment.Amount
+    };
 }
