@@ -1,5 +1,6 @@
 using PaymentGateway.Api.Services;
 using System.Text.Json.Serialization;
+using PaymentGateway.Api.Bank;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -15,6 +16,13 @@ builder.Services.AddSingleton<PaymentRequestValidator>();
 
 builder.Services.AddSingleton<InMemoryPaymentsRepository>();
 builder.Services.AddSingleton<IPaymentRepository, InMemoryPaymentsRepository>();
+builder.Services.AddHttpClient<IAcquiringBankClient, AcquiringBankClient>(client =>
+{
+    client.BaseAddress = new Uri(
+        builder.Configuration["AcquiringBank:BaseUrl"]
+        ?? throw new InvalidOperationException("AcquiringBank:BaseUrl is not configured."));
+    client.Timeout = TimeSpan.FromSeconds(10);
+});
 
 var app = builder.Build();
 
