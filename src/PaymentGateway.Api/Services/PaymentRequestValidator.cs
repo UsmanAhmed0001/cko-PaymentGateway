@@ -17,7 +17,7 @@ public class PaymentRequestValidator
     {
         var errors = new List<string>();
         
-        ValidateCardNumber(request.CardNumberLastFour, errors);
+        ValidateCardNumber(request.CardNumber, errors);
         ValidateExpiry(request.ExpiryMonth, request.ExpiryYear, errors);
         ValidateCurrency(request.Currency, errors);
         ValidateAmount(request.Amount, errors);

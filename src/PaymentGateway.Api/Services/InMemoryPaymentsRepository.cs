@@ -4,7 +4,7 @@ using PaymentGateway.Api.Models;
 
 namespace PaymentGateway.Api.Services;
 
-public class InMemoryPaymentsRepository : IPaymentRepository
+public class InMemoryPaymentsRepository : IPaymentsRepository
 {
     //public List<PaymentResponse> Payments = new(); Caused issue
     private readonly ConcurrentDictionary<Guid, Payment> _payments = new();

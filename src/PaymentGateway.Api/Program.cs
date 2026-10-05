@@ -13,9 +13,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton(TimeProvider.System);
 builder.Services.AddSingleton<PaymentRequestValidator>();
+builder.Services.AddScoped<PaymentService>();
 
 builder.Services.AddSingleton<InMemoryPaymentsRepository>();
-builder.Services.AddSingleton<IPaymentRepository, InMemoryPaymentsRepository>();
+builder.Services.AddSingleton<IPaymentsRepository, InMemoryPaymentsRepository>();
 builder.Services.AddHttpClient<IAcquiringBankClient, AcquiringBankClient>(client =>
 {
     client.BaseAddress = new Uri(

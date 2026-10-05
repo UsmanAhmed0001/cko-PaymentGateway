@@ -17,7 +17,7 @@ public class PaymentRequestValidatorTests
         long? amount = 100,
         string? cvv = "123") => new()
     {
-        CardNumberLastFour = cardNumber,
+        CardNumber = cardNumber,
         ExpiryMonth = expiryMonth,
         ExpiryYear = expiryYear,
         Currency = currency,
