@@ -3,8 +3,6 @@ using System.Text.Json.Serialization;
 using PaymentGateway.Api.Bank;
 using Microsoft.AspNetCore.Mvc;
 using PaymentGateway.Api.Models.Responses;
-using Microsoft.AspNetCore.Mvc;
-using PaymentGateway.Api.Models.Responses;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
